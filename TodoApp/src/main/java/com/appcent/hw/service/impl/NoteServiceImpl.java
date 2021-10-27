@@ -10,6 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @RequiredArgsConstructor
 @Service
 public class NoteServiceImpl implements NoteService {
@@ -51,5 +55,12 @@ public class NoteServiceImpl implements NoteService {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.getUserByUsername(username);
         noteRepository.deleteAllByUser(user);
+    }
+
+    @Override
+    public List<Note> getAllNotes() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.getUserByUsername(username);
+        return noteRepository.getNoteByUser(user);
     }
 }

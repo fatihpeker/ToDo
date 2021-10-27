@@ -1,6 +1,7 @@
 package com.appcent.hw.controller;
 
 import com.appcent.hw.dto.NoteRequest;
+import com.appcent.hw.model.Note;
 import com.appcent.hw.service.NoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+
 
 @Slf4j
 @RestController
@@ -38,5 +41,12 @@ public class NoteController {
         noteService.deleteNote(id);
         return ResponseEntity.ok("Note deleted");
     }
+
+    @GetMapping(value = "getAll")
+    public ResponseEntity<List<Note>> getAllNotes(){
+        return ResponseEntity.ok(noteService.getAllNotes());
+    }
+
+
 
 }
